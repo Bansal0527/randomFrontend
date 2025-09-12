@@ -1,6 +1,8 @@
 
 import React from 'react';
-import type { Theme } from '../types'
+import type { Theme } from '../types';
+import { ThemeSelector } from './ThemeSelector';
+import { WEEKEND_THEMES } from '../constants';
 
 interface HeaderProps {
   onApplyTheme: (theme: Theme) => void;
@@ -14,7 +16,7 @@ export const Header: React.FC<HeaderProps> = ({ onApplyTheme, onShare }) => {
         Weekendly
       </h1>
       <div className="flex items-center space-x-2">
-       
+        <ThemeSelector themes={WEEKEND_THEMES} onSelectTheme={onApplyTheme} />
         <button
           onClick={onShare}
           className="bg-brand-secondary text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity flex items-center"

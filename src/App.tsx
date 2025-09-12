@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Header } from '../components/header';
 import { ActivityPicker } from '../components/ActivityPicker';
 import { TimelineView } from '../components/TimelineView';
-// import { ShareModal } from '../components/ShareModal';
+import { ShareModal } from '../components/ShareModal';
 import { useWeekendPlanner } from '../hooks/useWeekendPlanner';
 import { CalendarControl } from '../components/CalenderControl';
 import type { DragData, TimeSlot } from '../types';
@@ -17,7 +17,7 @@ export default function App() {
     moveActivity,
     removeActivity,
     applyTheme,
-    // addSuggestedActivities,
+    addSuggestedActivities,
     isLoadingAI,
   } = useWeekendPlanner();
   
@@ -50,11 +50,10 @@ export default function App() {
         <main className="mt-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
           <div className="lg:col-span-1">
             <ActivityPicker 
-              activities={availableActivities}
-              onDragStart={handleDragStart} addSuggestedActivities={function (themeName: string): void {
-                throw new Error('Function not implemented.');
-              } } isLoadingAI={false}              // addSuggestedActivities={addSuggestedActivities}
-              // isLoadingAI={isLoadingAI}
+              activities={availableActivities} 
+              onDragStart={handleDragStart}
+              addSuggestedActivities={addSuggestedActivities}
+              isLoadingAI={isLoadingAI}
             />
           </div>
 
@@ -75,12 +74,12 @@ export default function App() {
         </main>
       </div>
 
-      {/* <ShareModal 
+      <ShareModal 
         isOpen={isShareModalOpen} 
         onClose={() => setShareModalOpen(false)} 
         schedule={schedule}
         selectedDays={selectedDays}
-      /> */}
+      />
     </div>
   );
 }

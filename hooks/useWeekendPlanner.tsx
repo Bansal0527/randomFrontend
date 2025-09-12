@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { TimeSlot, Mood } from '../types';
 import type { Schedule, Activity, Theme, DayScheduleData } from '../types';
 import { PREDEFINED_ACTIVITIES } from '../constants';
-// import { fetchAISuggestions } from '../services/geminiService';
+import { fetchAISuggestions } from '../services/geminiService';
 import { formatDateForId, getNextSaturday } from '../utils/dateUtils';
 
 const LOCAL_STORAGE_KEY = 'weekendly-plan-v3';
@@ -147,18 +147,18 @@ export const useWeekendPlanner = () => {
     setSchedule(newSchedule);
   }, [selectedDays]);
   
-//   const addSuggestedActivities = useCallback(async (themeName: string) => {
-//     setIsLoadingAI(true);
-//     try {
-//       const suggestions = await fetchAISuggestions(themeName);
-//       if (suggestions.length > 0) {
-//         const newActivities = suggestions.map(s => createActivity(s as Omit<Activity, 'id' | 'mood'>));
-//         setAvailableActivities(prev => [...newActivities, ...prev]);
-//       }
-//     } finally {
-//       setIsLoadingAI(false);
-//     }
-//   }, []);
+  const addSuggestedActivities = useCallback(async (themeName: string) => {
+    setIsLoadingAI(true);
+    try {
+      const suggestions = await fetchAISuggestions(themeName);
+      if (suggestions.length > 0) {
+        const newActivities = suggestions.map(s => createActivity(s as Omit<Activity, 'id' | 'mood'>));
+        setAvailableActivities(prev => [...newActivities, ...prev]);
+      }
+    } finally {
+      setIsLoadingAI(false);
+    }
+  }, []);
   
   return {
     schedule,
@@ -169,7 +169,7 @@ export const useWeekendPlanner = () => {
     moveActivity,
     removeActivity,
     applyTheme,
-    // addSuggestedActivities,
+    addSuggestedActivities,
     isLoadingAI
   };
 };
