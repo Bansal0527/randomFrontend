@@ -4,7 +4,7 @@ import type { Activity } from '../types';
 import { ActivityCategory, Mood } from '../types';
 import { Sparkles } from '../constants';
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 if (!API_KEY) {
   console.warn("API_KEY for Gemini is not set. AI features will be disabled.");
