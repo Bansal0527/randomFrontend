@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { TimeSlot, Mood } from '../types';
 import type { Schedule, Activity, Theme, DayScheduleData } from '../types';
 import { PREDEFINED_ACTIVITIES } from '../constants';
+import { Sparkles } from '../constants';
 import { fetchAISuggestions } from '../services/geminiService';
 import { formatDateForId, getNextSaturday } from '../utils/dateUtils';
 
@@ -27,27 +28,60 @@ const getInitialSelectedDays = (): string[] => {
 }
 
 export const useWeekendPlanner = () => {
-  const [schedule, setSchedule] = useState<Schedule>({});
-  const [selectedDays, setSelectedDays] = useState<string[]>(getInitialSelectedDays);
-  const [availableActivities, setAvailableActivities] = useState<Activity[]>(
-    () => PREDEFINED_ACTIVITIES.map(createActivity)
-  );
-  const [isLoadingAI, setIsLoadingAI] = useState(false);
+  // Load from localStorage on first render
+  // Helper: get icon for activity name/category
+  const getIconForActivity = (name: string, category: string): React.ComponentType<{ className?: string }> => {
+    const found = PREDEFINED_ACTIVITIES.find(a => a.name === name && a.category === category);
+    return found ? found.icon : Sparkles;
+  };
 
-  useEffect(() => {
+  const rehydrateScheduleIcons = (schedule: Schedule): Schedule => {
+    const newSchedule: Schedule = {};
+    for (const date in schedule) {
+      const day = schedule[date];
+      const newDay: DayScheduleData = { morning: [], afternoon: [], evening: [] };
+      (Object.keys(day) as Array<keyof DayScheduleData>).forEach(slot => {
+        newDay[slot] = day[slot].map((activity: Activity) => ({
+          ...activity,
+          icon: getIconForActivity(activity.name, activity.category)
+        }));
+      });
+      newSchedule[date] = newDay;
+    }
+    return newSchedule;
+  };
+
+  const getInitialState = () => {
     try {
       const savedData = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (savedData) {
         const { schedule: savedSchedule, selectedDays: savedDays } = JSON.parse(savedData);
         if (savedSchedule && savedDays) {
-            setSchedule(savedSchedule);
-            setSelectedDays(savedDays);
+          return {
+            schedule: rehydrateScheduleIcons(savedSchedule),
+            selectedDays: savedDays,
+          };
         }
       }
     } catch (error) {
       console.error("Failed to load plan from localStorage", error);
     }
-  }, []);
+    // Fallback to default
+    return {
+      schedule: {},
+      selectedDays: getInitialSelectedDays(),
+    };
+  };
+
+  const initialState = getInitialState();
+  const [schedule, setSchedule] = useState<Schedule>(initialState.schedule);
+  const [selectedDays, setSelectedDays] = useState<string[]>(initialState.selectedDays);
+  const [availableActivities, setAvailableActivities] = useState<Activity[]>(
+    () => PREDEFINED_ACTIVITIES.map(createActivity)
+  );
+  const [isLoadingAI, setIsLoadingAI] = useState(false);
+
+  // Removed: loading from localStorage in useEffect (now handled in lazy state init)
 
   useEffect(() => {
     try {
