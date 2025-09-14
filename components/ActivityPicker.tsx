@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import type { Activity, DragData } from '../types';
 import { Sparkles } from '../constants';
 import { CATEGORY_COLORS } from '../utils/constants';
+import { FaWandMagicSparkles } from "react-icons/fa6";
+
 
 interface ActivityPickerProps {
   activities: Activity[];
@@ -87,7 +89,7 @@ export const ActivityPicker: React.FC<ActivityPickerProps> = ({ activities, onDr
                 {isLoadingAI ? (
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                 ) : (
-                    <Sparkles className="w-4 h-4" />
+                    <FaWandMagicSparkles className="w-4 h-4" />
                 )}
             </button>
         </div>

@@ -42,6 +42,12 @@ export default function App() {
     setDragData(null);
   }, [dragData, addActivity, moveActivity]);
 
+  // Function to remove a day from the selected days
+  const handleRemoveDay = useCallback((dateToRemove: string) => {
+    const newSelectedDays = selectedDays.filter(day => day !== dateToRemove);
+    setSelectedDays(newSelectedDays);
+  }, [selectedDays, setSelectedDays]);
+
   return (
     <div className="min-h-screen bg-brand-bg text-brand-text font-sans p-4 lg:p-6">
       <div className="max-w-7xl mx-auto">
@@ -68,6 +74,7 @@ export default function App() {
               onDrop={handleDrop}
               onDragStart={handleDragStart}
               onRemove={removeActivity}
+              onRemoveDay={handleRemoveDay} // Pass the new function
               isDragging={!!dragData}
             />
           </div>
