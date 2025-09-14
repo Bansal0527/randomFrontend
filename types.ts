@@ -1,26 +1,15 @@
-export enum TimeSlot {
-  Morning = 'morning',
-  Afternoon = 'afternoon',
-  Evening = 'evening',
-}
+export type TimeSlot = 'morning' | 'afternoon' | 'evening';
 
-export enum ActivityCategory {
-  Food = 'Food',
-  Outdoor = 'Outdoor',
-  Entertainment = 'Entertainment',
-  Relaxation = 'Relaxation',
-  Creative = 'Creative',
-  Social = 'Social',
-  AI = 'AI Generated'
-}
+export type ActivityCategory = 
+  | 'Food' 
+  | 'Outdoor' 
+  | 'Entertainment' 
+  | 'Relaxation' 
+  | 'Creative' 
+  | 'Social' 
+  | 'AI Generated';
 
-export enum Mood {
-  Happy = '😄',
-  Relaxed = '😌',
-  Energetic = '⚡️',
-  Cozy = '☕️',
-  Adventurous = '🚀',
-}
+export type Mood = '😄' | '😌' | '⚡️' | '☕️' | '🚀';
 
 export interface Activity {
   id: string;

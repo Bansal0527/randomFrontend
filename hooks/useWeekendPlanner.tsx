@@ -5,7 +5,6 @@ import { formatDateForId, getNextSaturday } from '../utils/dateUtils';
 import { Sparkles } from '../constants';
 import { fetchAISuggestions } from '../services/geminiService';
 import type { Theme } from '../types';
-import { Mood, TimeSlot as TimeSlotEnum } from '../types';
 
 const LOCAL_STORAGE_KEY = 'weekendly-plan-v3';
 
@@ -18,7 +17,7 @@ const createEmptyDay = (): DayScheduleData => ({
 const createActivity = (activity: Omit<Activity, 'id' | 'mood'>): Activity => ({
   ...activity,
   id: `${Date.now()}-${Math.random()}`,
-  mood: Mood.Happy,
+  mood: '😄',
 
 });
 
@@ -162,7 +161,7 @@ export const useWeekendPlanner = () => {
     });
 
     // Distribute activities across selected days and timeslots
-    const timeSlots: TimeSlot[] = [TimeSlotEnum.Morning, TimeSlotEnum.Afternoon, TimeSlotEnum.Evening];
+    const timeSlots: TimeSlot[] = ['morning', 'afternoon', 'evening'];
     let dayIndex = 0;
     let timeSlotIndex = 0;
 

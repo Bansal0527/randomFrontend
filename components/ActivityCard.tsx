@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import type { Activity } from '../types';
 import { CATEGORY_COLORS } from '../utils/constants';
-import { Mood } from '../types';
 
 interface ActivityCardProps {
   activity: Activity;
@@ -15,7 +14,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity, onDragStar
     const colors = CATEGORY_COLORS[activity.category];
 
     const handleMoodChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setCurrentMood(e.target.value as Mood);
+        setCurrentMood(e.target.value as any);
     };
 
     return (
@@ -52,7 +51,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity, onDragStar
                         className="text-lg bg-gray-100 rounded-md appearance-none cursor-pointer py-1 pl-2 pr-8"
                         style={{backgroundPosition: 'right 0.2rem center'}}
                     >
-                        {Object.values(Mood).map(mood => (
+                        {['😄', '😌', '⚡️', '☕️', '🚀'].map(mood => (
                             <option key={mood} value={mood}>{mood}</option>
                         ))}
                     </select>
