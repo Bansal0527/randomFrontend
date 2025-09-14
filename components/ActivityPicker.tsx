@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { Activity, DragData } from '../types';
-import { Sparkles } from '../constants';
 import { CATEGORY_COLORS } from '../utils/constants';
 import { FaWandMagicSparkles } from "react-icons/fa6";
 
