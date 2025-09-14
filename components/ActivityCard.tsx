@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
 import type { Activity } from '../types';
-import { Mood } from '../types';
-import { CATEGORY_COLORS } from '../constants';
+import { CATEGORY_COLORS } from '../utils/constants';
+import { MOODS } from '../utils/constants';
+import type { Mood } from '../types';
 
 interface ActivityCardProps {
   activity: Activity;
@@ -52,7 +53,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity, onDragStar
                         className="text-lg bg-gray-100 rounded-md appearance-none cursor-pointer py-1 pl-2 pr-8"
                         style={{backgroundPosition: 'right 0.2rem center'}}
                     >
-                        {Object.values(Mood).map(mood => (
+                        {MOODS.map(mood => (
                             <option key={mood} value={mood}>{mood}</option>
                         ))}
                     </select>

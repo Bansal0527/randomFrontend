@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { Activity, DragData } from '../types';
-import { CATEGORY_COLORS, Sparkles } from '../constants';
+import { Sparkles } from '../constants';
+import { CATEGORY_COLORS } from '../utils/constants';
 
 interface ActivityPickerProps {
   activities: Activity[];

@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
-import { TimeSlot, Mood } from '../types';
-import type { Schedule, Activity, Theme, DayScheduleData } from '../types';
-import { PREDEFINED_ACTIVITIES } from '../constants';
+import type { Schedule, Activity, TimeSlot, DayScheduleData } from '../types';
+import { PREDEFINED_ACTIVITIES } from '../utils/constants';
+import { formatDateForId, getNextSaturday } from '../utils/dateUtils';
 import { Sparkles } from '../constants';
 import { fetchAISuggestions } from '../services/geminiService';
-import { formatDateForId, getNextSaturday } from '../utils/dateUtils';
+import type { Theme } from '../types';
 
 const LOCAL_STORAGE_KEY = 'weekendly-plan-v3';
 
@@ -17,7 +17,7 @@ const createEmptyDay = (): DayScheduleData => ({
 const createActivity = (activity: Omit<Activity, 'id' | 'mood'>): Activity => ({
   ...activity,
   id: `${Date.now()}-${Math.random()}`,
-  mood: Mood.Happy,
+  mood: '😄',
 });
 
 const getInitialSelectedDays = (): string[] => {
@@ -160,7 +160,7 @@ export const useWeekendPlanner = () => {
     });
 
     // Distribute activities across selected days and timeslots
-    const timeSlots: TimeSlot[] = [TimeSlot.Morning, TimeSlot.Afternoon, TimeSlot.Evening];
+    const timeSlots: TimeSlot[] = ['morning', 'afternoon', 'evening'];
     let dayIndex = 0;
     let timeSlotIndex = 0;
 

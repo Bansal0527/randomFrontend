@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import type { Schedule, DragData, TimeSlot, WeatherData } from '../types';
+import React from 'react';
+import type { Schedule, DragData, TimeSlot } from '../types';
 import { TimeSlotColumn } from './TimeSlotColumn';
 import { formatDateForDisplay } from '../utils/dateUtils';
 

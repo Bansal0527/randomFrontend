@@ -2,7 +2,7 @@
 import React from 'react';
 import type { Theme } from '../types';
 import { ThemeSelector } from './ThemeSelector';
-import { WEEKEND_THEMES } from '../constants';
+import { WEEKEND_THEMES } from '../utils/constants';
 
 interface HeaderProps {
   onApplyTheme: (theme: Theme) => void;

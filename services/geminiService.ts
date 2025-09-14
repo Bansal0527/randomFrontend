@@ -1,7 +1,5 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import type { Activity } from '../types';
-import { ActivityCategory, Mood } from '../types';
 import { Sparkles } from '../constants';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -25,7 +23,7 @@ const activitySchema = {
     },
     category: {
       type: Type.STRING,
-      enum: Object.values(ActivityCategory).filter(c => c !== ActivityCategory.AI),
+      enum: ['Food', 'Outdoor', 'Entertainment', 'Relaxation', 'Creative', 'Social'],
       description: 'The best-fitting category for this activity.'
     }
   },
@@ -60,9 +58,9 @@ export const fetchAISuggestions = async (themeName: string): Promise<Partial<Act
     const parsedResponse = jsonString ? JSON.parse(jsonString) : { suggestions: [] };
     
     if (parsedResponse.suggestions && Array.isArray(parsedResponse.suggestions)) {
-      return parsedResponse.suggestions.map((suggestion: any) => ({
+      return parsedResponse.suggestions.map((suggestion: { name: string; description: string; category: string; }) => ({
         ...suggestion,
-        category: suggestion.category || ActivityCategory.AI,
+        category: suggestion.category || 'AI Generated',
         icon: Sparkles,
       }));
     }

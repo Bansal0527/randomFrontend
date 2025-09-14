@@ -1,7 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { formatDateForId, getWeekDates, addDays } from '../utils/dateUtils';
 // import { getUpcomingHolidays, getHolidaysForDates } from '../services/holidayService';
-import type { Holiday } from '../types';
 
 interface CalendarControlProps {
   selectedDays: string[];
@@ -86,7 +85,7 @@ export const CalendarControl: React.FC<CalendarControlProps> = ({ selectedDays, 
   const pickerContainerRef = useRef<HTMLDivElement>(null);
   
   const weekDates = useMemo(() => getWeekDates(currentDate), [currentDate]);
-  const weekDateStrings = useMemo(() => weekDates.map(formatDateForId), [weekDates]);
+  // const weekDateStrings = useMemo(() => weekDates.map(formatDateForId), [weekDates]);
   
   // const holidaysInView = useMemo(() => getHolidaysForDates(weekDateStrings), [weekDateStrings]);
   // const longWeekendSuggestions = useMemo(() => getUpcomingHolidays().filter(h => h.isLongWeekend).slice(0, 2), []);
@@ -98,13 +97,13 @@ export const CalendarControl: React.FC<CalendarControlProps> = ({ selectedDays, 
     setSelectedDays(newSelectedDays);
   };
   
-  const selectLongWeekend = (weekend: Holiday) => {
-    if (weekend.days) {
-      setSelectedDays(weekend.days);
-      // Navigate calendar to the start of the long weekend
-      setCurrentDate(new Date(weekend.days[0].replace(/-/g, '/')));
-    }
-  }
+  // const selectLongWeekend = (weekend: Holiday) => {
+  //   if (weekend.days) {
+  //     setSelectedDays(weekend.days);
+  //     // Navigate calendar to the start of the long weekend
+  //     setCurrentDate(new Date(weekend.days[0].replace(/-/g, '/')));
+  //   }
+  // }
 
   const navigateWeek = (direction: 'prev' | 'next') => {
     const increment = direction === 'prev' ? -7 : 7;

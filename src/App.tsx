@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Header } from '../components/header';
 import { ActivityPicker } from '../components/ActivityPicker';
 import { TimelineView } from '../components/TimelineView';

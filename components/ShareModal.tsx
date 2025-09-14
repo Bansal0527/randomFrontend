@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import type { Schedule, Activity, DayScheduleData } from '../types';
-import { CATEGORY_COLORS } from '../constants';
+import { CATEGORY_COLORS } from '../utils/constants';
 import { formatDateForDisplay } from '../utils/dateUtils';
 
 // A lightweight, self-contained html2canvas-like function
